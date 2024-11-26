@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "battle-of-the-dataframes"
+version = "0.1.0"
+description = ""
+authors = ["Jakob Damen <jakob.damen@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.12"
+ipykernel = "^6.29.4"
+numpy = "^1.26.4"
+polars = "1.9.0"
+pandas = "2.2.2"
+statsmodels = "0.14.1"
+scikit-learn = "1.5.1"
+pyarrow = "^17.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
