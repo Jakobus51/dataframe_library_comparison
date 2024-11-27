@@ -19,21 +19,21 @@ class PolarsLazy:
     @timer
     def load_data(self):
         """TASK 0: Load the data from the save location"""
-        customer_database = pl.read_parquet(self.save_location / f"customer_database.parquet").lazy()
+        customer_database = pl.scan_parquet(self.save_location / f"customer_database.parquet")
         customer_database = customer_database.select(
             pl.col("customer_id").cast(pl.String),
             pl.col("brand_happiness").cast(pl.Float64),
         )
         self.customer_database = customer_database
 
-        store_visits = pl.read_parquet(self.save_location / f"store_visits.parquet").lazy()
+        store_visits = pl.scan_parquet(self.save_location / f"store_visits.parquet")
         store_visits = store_visits.select(
             pl.col("customer_id").cast(pl.String),
             pl.col("datetime").str.strptime(pl.Datetime, "%Y-%m-%dT%H:%M"),
         )
         self.store_visits = store_visits
 
-        advertisements = pl.read_parquet(self.save_location / f"advertisements.parquet").lazy()
+        advertisements = pl.scan_parquet(self.save_location / f"advertisements.parquet")
         advertisements = advertisements.select(
             pl.col("datetime").str.strptime(pl.Datetime, "%Y-%m-%dT%H:%M"),
             pl.col("channel").cast(pl.String),
@@ -41,7 +41,7 @@ class PolarsLazy:
         )
         self.advertisements = advertisements
 
-        revenue = pl.read_parquet(self.save_location / f"revenue.parquet").lazy()
+        revenue = pl.scan_parquet(self.save_location / f"revenue.parquet")
         revenue = revenue.select(
             pl.col("datetime").str.strptime(pl.Datetime, "%Y-%m-%dT%H:%M"),
             pl.col("revenue").cast(pl.Float32),
